@@ -1,0 +1,25 @@
+/*
+ * Blindtest CSS - mj
+ */
+
+.PlayerBackground{
+    -fx-background-image: url("vinyl.jpg");
+}
+
+.StartBackground{
+    -fx-background-image: url("startbg.jpg");
+}
+
+.StartText{
+    font-size:16px;
+    -fx-text-fill: whitesmoke;
+}
+
+
+.Game{
+    -fx-text-fill: gainsboro;
+}
+
+.Score{
+    -fx-text-fill: whitesmoke;
+}
