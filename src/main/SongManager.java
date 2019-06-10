@@ -1,6 +1,5 @@
 package main;
 
-
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
@@ -15,7 +14,8 @@ import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import org.controlsfx.dialog.Dialogs;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 
 /**
  * MusikRaten
@@ -104,7 +104,7 @@ public class SongManager {
 
     public static void createGameSet() {
         try {
-        //erstellt Collection HashSet mit Songs für Game, Set für Artist darf nur einmal vorkommen
+            //erstellt Collection HashSet mit Songs für Game, Set für Artist darf nur einmal vorkommen
             //Genre einschränken auf pop, rock, alternative, ...?
             //predicates (filter)
             CharSequence genreCharPop = "Pop";
@@ -129,11 +129,11 @@ public class SongManager {
                     .filter(fullPredicate)
                     .collect(Collectors.toSet());
         } catch (Exception e) {
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("An error occured while saving the gameSet. Cause:" + e.getMessage())
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("An error occured while saving the gameSet. Cause:" + e.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
         }
 
     }

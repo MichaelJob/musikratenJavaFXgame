@@ -44,7 +44,9 @@ public class ID3v2WWWFrameData extends AbstractID3v2FrameData {
     @Override
     protected int getLength() {
         int length = 0;
-        if (url != null) length = url.length();
+        if (url != null) {
+            length = url.length();
+        }
         return length;
     }
 

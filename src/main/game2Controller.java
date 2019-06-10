@@ -1,6 +1,5 @@
 package main;
 
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -9,11 +8,12 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import org.controlsfx.dialog.Dialogs;
 
 /**
  *
@@ -88,11 +88,11 @@ public class game2Controller {
             //play default mp3 on startup
             playFirst();
         } catch (Exception ex) {
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("An error occured Cause:" + ex.getMessage())
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("An error occured Cause:" + ex.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
         }
     }
 
@@ -208,7 +208,7 @@ public class game2Controller {
     }
 
     public int guessWhat(ActionEvent e) {
-            //checks which guess was made
+        //checks which guess was made
         //get clicked button //or typed number
         if (((Button) e.getSource()).getText().contains("1")) {
             guess = 1; //acording to clicked button
@@ -230,7 +230,6 @@ public class game2Controller {
         return guess;
     }
 
-    
     private void solveGame() {
         //if both have voted - solve game
         if (votedLeft & votedRight) {
@@ -240,40 +239,40 @@ public class game2Controller {
             colorLabelsGREEN();
             leftButtonsFadeOut();
             rightButtonsFadeOut();
-        }else if (votedLeft & !votedRight){
-           leftButtonsFadeOut();
-        }else if (votedRight & !votedLeft){
+        } else if (votedLeft & !votedRight) {
+            leftButtonsFadeOut();
+        } else if (votedRight & !votedLeft) {
             rightButtonsFadeOut();
         }
         //show score in any case
         lblScores.setText(Integer.toString(gameScoreLeft) + " : " + Integer.toString(gameScoreRight));
     }
 
-    public void leftButtonsFadeOut(){
-            btGuess1.setOpacity(0.3);
-            btGuess2.setOpacity(0.3);
-            btGuess3.setOpacity(0.3);
-            btGuess4.setOpacity(0.3);
+    public void leftButtonsFadeOut() {
+        btGuess1.setOpacity(0.3);
+        btGuess2.setOpacity(0.3);
+        btGuess3.setOpacity(0.3);
+        btGuess4.setOpacity(0.3);
     }
-    public void rightButtonsFadeOut(){
-            btGuess6.setOpacity(0.3);
-            btGuess7.setOpacity(0.3);
-            btGuess8.setOpacity(0.3);
-            btGuess9.setOpacity(0.3);
+
+    public void rightButtonsFadeOut() {
+        btGuess6.setOpacity(0.3);
+        btGuess7.setOpacity(0.3);
+        btGuess8.setOpacity(0.3);
+        btGuess9.setOpacity(0.3);
     }
-    public void ButtonsRestore(){
-            btGuess1.setOpacity(1);
-            btGuess2.setOpacity(1);
-            btGuess3.setOpacity(1);
-            btGuess4.setOpacity(1);
-            btGuess6.setOpacity(1);
-            btGuess7.setOpacity(1);
-            btGuess8.setOpacity(1);
-            btGuess9.setOpacity(1);
-    }  
-    
-    
-    
+
+    public void ButtonsRestore() {
+        btGuess1.setOpacity(1);
+        btGuess2.setOpacity(1);
+        btGuess3.setOpacity(1);
+        btGuess4.setOpacity(1);
+        btGuess6.setOpacity(1);
+        btGuess7.setOpacity(1);
+        btGuess8.setOpacity(1);
+        btGuess9.setOpacity(1);
+    }
+
     private void colorLabelsGREEN() {
         switch (correct) {
             case 1:

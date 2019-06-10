@@ -11,84 +11,85 @@
 <?import javafx.scene.layout.*?>
 <?scenebuilder-stylesheet blindtest.css?>
 
-<AnchorPane id="AnchorPane" onKeyPressed="#checkAnswer" stylesheets="@../guisrc/blindtest.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.GameController">
-   <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="PlayerBackground">
-         <center>
-            <VBox alignment="CENTER" prefHeight="359.0" prefWidth="400.0" styleClass="Game" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="lblGuess111" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="Who's song is it?" textAlignment="CENTER">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblSong1" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="1" textAlignment="CENTER">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblSong2" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="2" textAlignment="CENTER">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblSong3" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="3" textAlignment="CENTER">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblSong4" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="4" textAlignment="CENTER">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-         </center>
-         <bottom>
-            <Pane minHeight="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="lblCredit" alignment="CENTER" layoutY="35.0" prefHeight="30.0" prefWidth="800.0" textAlignment="CENTER" textFill="#f9ff00">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-         </bottom>
-         <top>
-            <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-              <items>
-                  <Button fx:id="BtnExit" mnemonicParsing="false" onAction="#handleBtnExit" text="End Game">
-                     <padding>
-                        <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
-                     </padding></Button>
-                  <Button fx:id="btNext" mnemonicParsing="false" onAction="#playNext" text="Play the next Song, Sam - we do not play it again..." textAlignment="CENTER">
-                     <padding>
-                        <Insets bottom="5.0" left="190.0" right="190.0" top="5.0" />
-                     </padding>
-                  </Button>
-              </items>
-            </ToolBar>
-         </top>
-         <left>
-            <VBox alignment="CENTER" prefHeight="404.0" prefWidth="160.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="lPlayer" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="make an educated guess:" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="btGuess1" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" text="1" />
-                  <Button fx:id="btGuess2" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" text="2" />
-                  <Button fx:id="btGuess3" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" text="3" />
-                  <Button fx:id="btGuess4" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" text="4" />
-               </children>
-            </VBox>
-         </left>
-         <right>
-            <Pane prefWidth="160.0" BorderPane.alignment="CENTER" />
-         </right>
-      </BorderPane>
-   </children>
+<AnchorPane id="AnchorPane" onKeyPressed="#checkAnswer" stylesheets="@../guisrc/blindtest.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.GameController">
+    <children>
+        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="PlayerBackground">
+            <center>
+                <VBox alignment="CENTER" prefHeight="359.0" prefWidth="400.0" styleClass="Game" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="lblGuess111" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="Who's song is it?" textAlignment="CENTER">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblSong1" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="1" textAlignment="CENTER">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblSong2" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="2" textAlignment="CENTER">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblSong3" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="3" textAlignment="CENTER">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="lblSong4" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="4" textAlignment="CENTER">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+            </center>
+            <bottom>
+                <Pane minHeight="100.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="lblCredit" alignment="CENTER" layoutY="35.0" prefHeight="30.0" prefWidth="800.0" textAlignment="CENTER" textFill="#f9ff00">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </Pane>
+            </bottom>
+            <top>
+                <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <items>
+                        <Button fx:id="BtnExit" mnemonicParsing="false" onAction="#handleBtnExit" text="End Game">
+                            <padding>
+                                <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                            </padding>
+                        </Button>
+                        <Button fx:id="btNext" mnemonicParsing="false" onAction="#playNext" text="Play the next Song, Sam - we do not play it again..." textAlignment="CENTER">
+                            <padding>
+                                <Insets bottom="5.0" left="190.0" right="190.0" top="5.0" />
+                            </padding>
+                        </Button>
+                    </items>
+                </ToolBar>
+            </top>
+            <left>
+                <VBox alignment="CENTER" prefHeight="404.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="lPlayer" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="make an educated guess:" textAlignment="CENTER" wrapText="true">
+                            <font>
+                                <Font size="12.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="btGuess1" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" text="1" />
+                        <Button fx:id="btGuess2" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" text="2" />
+                        <Button fx:id="btGuess3" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" text="3" />
+                        <Button fx:id="btGuess4" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" text="4" />
+                    </children>
+                </VBox>
+            </left>
+            <right>
+                <Pane prefWidth="160.0" BorderPane.alignment="CENTER" />
+            </right>
+        </BorderPane>
+    </children>
 </AnchorPane>

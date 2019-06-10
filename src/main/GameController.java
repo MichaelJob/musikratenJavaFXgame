@@ -8,12 +8,12 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import org.controlsfx.dialog.Dialogs;
 
 /**
  *
@@ -66,11 +66,9 @@ public class GameController {
             Main.getPlayerLeft().add1plGame();
             playFirst();
         } catch (Exception ex) {
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("An error occured Cause:" + ex.getMessage())
-                    .showInformation();
+            Dialog<String> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.showAndWait();
         }
     }
 
@@ -205,8 +203,7 @@ public class GameController {
                 break;
         }
     }
-    */
-
+     */
     private void colorLabelsGREEN() {
         switch (correct) {
             case 1:

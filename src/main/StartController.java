@@ -1,6 +1,5 @@
 package main;
 
-
 import java.io.File;
 import java.io.PrintWriter;
 import javafx.event.ActionEvent;
@@ -9,6 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
@@ -19,7 +20,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
-import org.controlsfx.dialog.Dialogs;
 
 /**
  * @author mjair
@@ -93,13 +93,13 @@ public class StartController {
         }
         try {
             setPlayerNames();               //write names from player of main class into labels
-           // getMusicPath();         //debugging
+            // getMusicPath();         //debugging
         } catch (Exception ex) {
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("An error occured Cause:" + ex.getMessage())
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("An error occured Cause:" + ex.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
         }
     }
 
@@ -195,11 +195,11 @@ public class StartController {
         try {
             MusicNavigator.loadVista(MusicNavigator.HIGHSCORESFXML);
         } catch (Exception e) {
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("Bummer! An error occured while opening High Scores. Cause:" + e.getMessage())
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("Bummer! An error occured while opening High Scores. Cause:" + e.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
         }
     }
 
@@ -219,17 +219,17 @@ public class StartController {
                 } else {
                     Main.setDir(selectedDirectory.getAbsolutePath());
                     //lblDir.setText(Main.getDir()); 
-                //walk through dir again
-                    Dialogs.create()
-                        .title("Info Blindtest - MusikRaten")
-                        .masthead(null)
-                        .message("A new music path folder is set. It can take a while to search&seek all your mp3 Files. Be patient")
-                        .showInformation();
-                SongManager.walk(Main.getDir());
-                SongManager.createSongList();
-                SongManager.createGameSet();
+                    //walk through dir again
+                    Dialog<ButtonType> dialog = new Dialog<>();
+                    dialog.setTitle("Error Blindtest - MusikRaten");
+                    dialog.setContentText("A new music path folder is set. It can take a while to search&seek all your mp3 Files. Be patient");
+                    dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+                    dialog.showAndWait();
+                    SongManager.walk(Main.getDir());
+                    SongManager.createSongList();
+                    SongManager.createGameSet();
                 }
-          
+
             }
             //write path in file
             try {
@@ -237,29 +237,29 @@ public class StartController {
                 out.print(Main.getDir());
                 out.close();
             } catch (Exception e) {
-                Dialogs.create()
-                        .title("Error Blindtest - MusikRaten")
-                        .masthead(null)
-                        .message("An error occured while saving music path. Cause:" + e.getMessage())
-                        .showInformation();
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setTitle("Error Blindtest - MusikRaten");
+                dialog.setContentText("An error occured while saving music path. Cause:" + e.getMessage());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+                dialog.showAndWait();
             }
         } catch (Exception e) {
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("An error occured in the DirectoryChooser. Try again. Cause:" + e.getMessage())
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("An error occured in the DirectoryChooser. Try again. Cause:" + e.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
         }
     }
 
     //about info dialog
     @FXML
     private void handleButtonAboutAction(ActionEvent event) {
-        Dialogs.create()
-                .title("About Blindtest - MusikRaten")
-                .masthead(null)
-                .message("This is a simple game for training music guessing. Be as quick as you can, if you want to compede in real life. Build with NetBeans, Java8, JavaFX. Michael Job 4.2015")
-                .showInformation();
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("About Blindtest - MusikRaten");
+        dialog.setContentText("This is a music guessing game. Be as quick as you can, if you want to compede in real life. Build with NetBeans, Java8, JavaFX. Michael Job 4.2015 - ported to Java12 JavaFX12 6.2019");
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+        dialog.showAndWait();
     }
 
     //open window to set player names
@@ -276,11 +276,11 @@ public class StartController {
             stage.showAndWait();
 
         } catch (Exception e) {
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("An error occured while opening Player names. Cause:" + e.getMessage())
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("An error occured while opening Player names. Cause:" + e.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
             System.out.print(e.toString());
         }
     }
@@ -298,11 +298,11 @@ public class StartController {
                 MusicNavigator.loadVista(MusicNavigator.GAMEFXML);
             }
         } catch (Exception e) {
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("An error occured while opening game mode. Cause:" + e.getMessage())
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("An error occured while opening game mode. Cause:" + e.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
         }
     }
 
@@ -322,11 +322,11 @@ public class StartController {
             lblPlayer3.setText(Main.pl3.getName());
             lblPlayer4.setText(Main.pl4.getName());
         } catch (Exception e) {
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("An error occured in handling player names. Cause:" + e.getMessage())
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("An error occured in handling player names. Cause:" + e.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
         }
     }
 
@@ -334,16 +334,7 @@ public class StartController {
     //get music path to folder containing mp3 files from Main class into label in start
     @FXML
     public void getMusicPath() {
-        try {
-            lblDir.setText(Main.getDir());
-        } catch (Exception e) {
-            lblDir.setText("No Directory selected");
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("An error occured. Cause:" + e.getMessage())
-                    .showInformation();
-        }
+             lblDir.setText(Main.getDir());
     }
-    */
+     */
 }

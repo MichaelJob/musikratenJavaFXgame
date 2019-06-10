@@ -15,10 +15,11 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.controlsfx.dialog.Dialogs;
 
 /**
  * Main application class.
@@ -38,10 +39,10 @@ public class Main extends Application {
     public static PlayerUser pl3;
     public static PlayerUser pl4;
     //List highScore contains Objects PlayerUser
-    public static List<PlayerUser> highScore = new ArrayList<>();     
+    public static List<PlayerUser> highScore = new ArrayList<>();
     //music path and files...
-    private static String dir; 
-    
+    private static String dir;
+
     @Override
     public void start(Stage stage) throws Exception {
         //import player data from file
@@ -49,11 +50,13 @@ public class Main extends Application {
         //import path data from file
         loadPath();
         if (dir != null) {
-            Dialogs.create()
-                    .title("Info Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("It can take a while to search&seek all your mp3 Files. Be patient")
-                    .showInformation();
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Info Blindtest - MusikRaten");
+            dialog.setContentText("It can take a while to search&seek all your mp3 Files. Be patient");
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
+            dialog.showAndWait();
+
             //walk through directory and look for mp3 files
             SongManager.walk(dir);
             SongManager.createSongList();
@@ -75,6 +78,7 @@ public class Main extends Application {
     /**
      * Loads the main fxml layout. Sets up the vista switching VistaNavigator.
      * Loads the first vista into the fxml layout.
+     *
      * @return the loaded pane.
      * @throws IOException if the pane could not be loaded.
      */
@@ -93,6 +97,7 @@ public class Main extends Application {
 
     /**
      * Creates the main application scene.
+     *
      * @param mainPane the main application layout.
      * @return the created scene.
      */
@@ -110,24 +115,24 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-      
+
     //load Data from File on startup of application
     public void loadData() throws IOException {
         try {
             try {
                 FileInputStream fis = new FileInputStream("highScoreFile.txt");
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                try {
-                    highScore = (List<PlayerUser>) ois.readObject();
-                    //get players out of list into current players
-                    pl1 = highScore.get(0);
-                    pl2 = highScore.get(1);
-                    pl3 = highScore.get(2);
-                    pl4 = highScore.get(3);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(PlayerController.class.getName()).log(Level.SEVERE, null, ex);
+                try (ObjectInputStream ois = new ObjectInputStream(fis)) {
+                    try {
+                        highScore = (List<PlayerUser>) ois.readObject();
+                        //get players out of list into current players
+                        pl1 = highScore.get(0);
+                        pl2 = highScore.get(1);
+                        pl3 = highScore.get(2);
+                        pl4 = highScore.get(3);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(PlayerController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-                ois.close();
             } catch (IOException ex) {
                 //if loading fails (first start of game) of file got deleted
                 try {
@@ -141,19 +146,19 @@ public class Main extends Application {
                     pl4 = new PlayerUser("Player 4");
                     highScore.add(pl4);
                 } catch (Exception e) {
-                    Dialogs.create()
-                            .title("Error Blindtest - MusikRaten")
-                            .masthead(null)
-                            .message("Def erst - An error occured while handling default players. Cause:" + e.getMessage())
-                            .showInformation();
+                    Dialog<ButtonType> dialog = new Dialog<>();
+                    dialog.setTitle("Error Blindtest - MusikRaten");
+                    dialog.setContentText("Def erst - An error occured while handling default players. Cause:" + e.getMessage());
+                    dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+                    dialog.showAndWait();
                 }
             }
         } catch (Exception e) {       //error msg if all fails
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("loadData - An error occured while handling players. Cause:" + e.getMessage())
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("loadData - An error occured while handling players. Cause:" + e.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
         }
     }
 
@@ -161,27 +166,27 @@ public class Main extends Application {
         //get musicpath from file
         try {
             File temp = new File("musicpath.txt");
-            Scanner scanner = new Scanner(temp);
-            dir = scanner.nextLine();
-            scanner.close();
+            try (Scanner scanner = new Scanner(temp)) {
+                dir = scanner.nextLine();
+            }
         } catch (IOException e) {
             //will fail on first start on new system - create file with windows pc default path
             try {
-                PrintWriter out = new PrintWriter("musicpath.txt");
-                out.print("C:/");
-                out.close();
+                try (PrintWriter out = new PrintWriter("musicpath.txt")) {
+                    out.print("C:/");
+                }
                 dir = "C:/";
             } catch (IOException e3) {
                 //if this fails as well let user know to set a path
-                Dialogs.create()
-                        .title("Error Blindtest - MusikRaten")
-                        .masthead(null)
-                        .message("No music directory set. Please select a path." + e.getMessage() + e3.getMessage())
-                        .showInformation();
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setTitle("Error Blindtest - MusikRaten");
+                dialog.setContentText("No music directory set. Please select a path." + e.getMessage() + e3.getMessage());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+                dialog.showAndWait();
             }
         }
     }
-   
+
     //on Application close save Players and Scores...
     @Override
     public void stop() throws java.lang.Exception {
@@ -189,26 +194,27 @@ public class Main extends Application {
         try {
             File file = new File("highScoreFile.txt");
             FileOutputStream f = new FileOutputStream(file);
-            ObjectOutputStream s = new ObjectOutputStream(f);
-            s.writeObject(highScore);
-            s.close();
-        } catch (Exception e) {
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("on stop save - An error occured while saving the data. Cause:" + e.getMessage())
-                    .showInformation();
+            try (ObjectOutputStream s = new ObjectOutputStream(f)) {
+                s.writeObject(highScore);
+            }
+        } catch (IOException e) {
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("on stop save - An error occured while saving the data. Cause:" + e.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
         }
     }
-
 
     //Getter and Setter
     public static String getDir() {
         return dir;
     }
+
     public static void setDir(String s) {
         dir = s;
     }
+
     public static boolean isPlayerMode2() {
         return playerMode2;
     }

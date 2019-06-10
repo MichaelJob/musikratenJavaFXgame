@@ -1,7 +1,5 @@
 package main;
 
-
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
@@ -10,10 +8,10 @@ import javafx.scene.layout.StackPane;
  * Main controller class for the entire layout.
  */
 public class MainController {
-    
-    
-    
-    /** Holder of a switchable vista. */
+
+    /**
+     * Holder of a switchable vista.
+     */
     @FXML
     private StackPane vistaHolder;
 

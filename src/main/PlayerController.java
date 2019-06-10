@@ -1,16 +1,16 @@
 package main;
 
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import org.controlsfx.dialog.Dialogs;
+//import org.controlsfx.dialog.Dialogs;
 
 /**
  * FXML Controller class
@@ -43,11 +43,12 @@ public class PlayerController implements Initializable {
         try {
             setPlayerFromFile();
         } catch (IOException ex) {
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("An error occured while setting player names. Cause:" + ex.getMessage())
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("An error occured while setting player names. Cause:" + ex.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
+
         }
     }
 
@@ -60,11 +61,11 @@ public class PlayerController implements Initializable {
             name3.setText(Main.pl3.getName());
             name4.setText(Main.pl4.getName());
         } catch (Exception e) {       //error msg if all fails
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("An error occured while setting player names. Cause:" + e.getMessage())
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("An error occured while setting player names. Cause:" + e.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
         }
     }
 
@@ -88,11 +89,11 @@ public class PlayerController implements Initializable {
                 Main.pl3.setName(name3.getText());
                 Main.pl4.setName(name4.getText());
             } catch (Exception e) {
-                Dialogs.create()
-                        .title("Error Blindtest - MusikRaten")
-                        .masthead(null)
-                        .message("An error occured while saving player names. Cause:" + e.getMessage())
-                        .showInformation();
+                Dialog<ButtonType> dialog = new Dialog<>();
+                dialog.setTitle("Error Blindtest - MusikRaten");
+                dialog.setContentText("An error occured while saving player names. Cause:" + e.getMessage());
+                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+                dialog.showAndWait();
             } finally {
                 // get a handle to the stage
                 Stage stage = (Stage) saveBtn.getScene().getWindow();
@@ -101,11 +102,11 @@ public class PlayerController implements Initializable {
             }
         } else {
             //inform user if one or more fields are left blank
-            Dialogs.create()
-                    .title("Error Blindtest - MusikRaten")
-                    .masthead(null)
-                    .message("Player names can not be null!")
-                    .showInformation();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("Player names can not be empty!");
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
         }
     }
 
