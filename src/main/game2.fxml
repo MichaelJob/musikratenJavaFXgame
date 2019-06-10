@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?scenebuilder-stylesheet blindtest.css?>
 
-<AnchorPane id="AnchorPane" styleClass="Game" stylesheets="@../guisrc/blindtest.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.game2Controller">
+<AnchorPane id="AnchorPane" onKeyPressed="#onKey" styleClass="Game" stylesheets="@../guisrc/blindtest.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.game2Controller">
     <children>
         <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="PlayerBackground">
             <center>
@@ -69,7 +69,7 @@
                                 <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
                             </padding>
                         </Button>
-                        <Button fx:id="btNext" mnemonicParsing="false" onAction="#playNext" text="Play the next Song, Sam - we do not play it again..." textAlignment="CENTER">
+                        <Button fx:id="btNext" mnemonicParsing="false" onAction="#playNext" text="Play the next Song, Sam" textAlignment="CENTER">
                             <padding>
                                 <Insets bottom="5.0" left="190.0" right="190.0" top="5.0" />
                             </padding>

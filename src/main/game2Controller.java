@@ -6,11 +6,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -21,9 +24,9 @@ import javafx.scene.paint.Color;
  */
 public class game2Controller {
 
-    private List<Song> Songs4Game = new ArrayList<Song>();  //random set of 4 songs
+    private List<Song> Songs4Game = new ArrayList<>();  //random set of 4 songs
     private int correct;    //random song which is played
-    private int guess;  //what user/s clicked or typed
+    private int guess = 0;  //what user/s clicked or typed
     private MediaPlayer mediaPlayer;
     private Media media;
     private URL URL = null;
@@ -166,50 +169,104 @@ public class game2Controller {
         counter++;
     }
 
+    @FXML
+    public void onKey(KeyEvent ae) {
+        //checks which guess was made by keystroke
+        if (!votedLeft | !votedRight) {                  //at least one can still vote
+            if (null != ae.getCode()) {
+                switch (ae.getCode()) {
+                    case DIGIT1:
+                    case NUMPAD1:
+                        guess = 1;
+                        break;
+                    case DIGIT2:
+                    case NUMPAD2:
+                        guess = 2;
+                        break;
+                    case DIGIT3:
+                    case NUMPAD3:
+                        guess = 3;
+                        break;
+                    case DIGIT4:
+                    case NUMPAD4:
+                        guess = 4;
+                        break;
+                    case DIGIT6:
+                    case NUMPAD6:
+
+                        guess = 6;
+                        break;
+                    case DIGIT7:
+                    case NUMPAD7:
+                        guess = 7;
+                        break;
+                    case DIGIT8:
+                    case NUMPAD8:
+                        guess = 8;
+                        break;
+                    case DIGIT9:
+                    case NUMPAD9:
+                        guess = 9;
+                        break;
+                    default:
+                        guess = 0;
+                        break;
+                }
+                if (guess != 0) {
+                    resolveAnswer();
+                }
+            }
+        }
+    }
+
     //check answer
     @FXML
     private void checkAnswer(ActionEvent e) {
         if (!votedLeft | !votedRight) {          //at least one can still vote
-            guess = guessWhat(e);    //get guessed number
-            //who was it? left or right player?
-            if (guess > 5 & !votedRight) {                       //if Player Right has guessed the first time evaluate it - after this it's over for Player right
-                //Player Right voted
-                votedRight = true;
-                if ((guess - 5) == correct) {         //the correct answer has come - guess-5 equals correct
-                    //if correct answer is given - vote is over - so let's say left voted too...
-                    votedLeft = true;
-                    //add Score in this game
-                    gameScoreRight++;
-                    //add Score to Player alltime
-                    Main.getPlayerRight().addScore2pl();
-                    //inform players
-                    lblCredit.setText(lblPlayerRight.getText() + " has scored!");
-                } else {    //if player right failed - player left can still vote (only one time of course)
-                    lblCredit.setText(lblPlayerRight.getText() + " failed!");
-                }
-            } else if (guess < 5 & !votedLeft) {               //if Player Left has guessed the first time evaluate it - after this it's over for Player left
-                //Player Left voted
-                votedLeft = true;
-                if (guess == correct) {         //the correct answer has come - guess equals correct
-                    //if correct answer is given - vote is over - so let's say right voted too...
-                    votedRight = true;
-                    //add Score in this game
-                    gameScoreLeft++;
-                    //add Score to Player alltime
-                    Main.getPlayerLeft().addScore2pl();
-                    //inform players
-                    lblCredit.setText(lblPlayerLeft.getText() + " has scored!");
-                } else {    //if player left failed - player right can still vote (only one time of course)
-                    lblCredit.setText(lblPlayerLeft.getText() + " failed!");
-                }
-            }
-            solveGame();    //if game solved show it
+            guessWhat(e);    //set guessed number
+            resolveAnswer();
         }
     }
 
-    public int guessWhat(ActionEvent e) {
+    public void resolveAnswer() {
+        //who was it? left or right player?
+        if (guess > 5 & !votedRight) {                       //if Player Right has guessed the first time evaluate it - after this it's over for Player right
+            //Player Right voted
+            votedRight = true;
+            if ((guess - 5) == correct) {         //the correct answer has come - guess-5 equals correct
+                //if correct answer is given - vote is over - so let's say left voted too...
+                votedLeft = true;
+                //add Score in this game
+                gameScoreRight++;
+                //add Score to Player alltime
+                Main.getPlayerRight().addScore2pl();
+                //inform players
+                lblCredit.setText(lblPlayerRight.getText() + " has scored!");
+            } else {    //if player right failed - player left can still vote (only one time of course)
+                lblCredit.setText(lblPlayerRight.getText() + " failed!");
+            }
+        } else if (guess < 5 & !votedLeft) {               //if Player Left has guessed the first time evaluate it - after this it's over for Player left
+            //Player Left voted
+            votedLeft = true;
+            if (guess == correct) {         //the correct answer has come - guess equals correct
+                //if correct answer is given - vote is over - so let's say right voted too...
+                votedRight = true;
+                //add Score in this game
+                gameScoreLeft++;
+                //add Score to Player alltime
+                Main.getPlayerLeft().addScore2pl();
+                //inform players
+                lblCredit.setText(lblPlayerLeft.getText() + " has scored!");
+            } else {    //if player left failed - player right can still vote (only one time of course)
+                lblCredit.setText(lblPlayerLeft.getText() + " failed!");
+            }
+        }
+        solveGame();    //if game solved show it
+    }
+
+    public void guessWhat(ActionEvent e) {
         //checks which guess was made
-        //get clicked button //or typed number
+        //get clicked button
         if (((Button) e.getSource()).getText().contains("1")) {
             guess = 1; //acording to clicked button
         } else if (((Button) e.getSource()).getText().contains("2")) {
@@ -227,7 +284,6 @@ public class game2Controller {
         } else if (((Button) e.getSource()).getText().contains("9")) {
             guess = 9; //acording to clicked button
         }
-        return guess;
     }
 
     private void solveGame() {

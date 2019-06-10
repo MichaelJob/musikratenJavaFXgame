@@ -148,8 +148,13 @@ public class GameController {
     @FXML
     private void checkAnswer(ActionEvent e) {
         if (!voted) {                                //does only something if voted is false, after first vote it's obsolet
-            mediaPlayer.setVolume(0.3);//lower volume
             getGuess(e);
+            resolveAnswer();
+        }
+    }
+    
+    private void resolveAnswer() {
+            mediaPlayer.setVolume(0.3);//lower volume
             if (guess == correct) {
                 //dem Player Punkt gutschreiben
                 Main.getPlayerLeft().addScore1pl();
@@ -167,43 +172,55 @@ public class GameController {
             btGuess2.setOpacity(0.3);
             btGuess3.setOpacity(0.3);
             btGuess4.setOpacity(0.3);
+    }
+    
+     @FXML
+    public void onKey(KeyEvent ae) {
+        //checks which guess was made by keystroke
+        if (!voted) {                  
+            if (null != ae.getCode()) {
+                switch (ae.getCode()) {
+                    case DIGIT1:
+                    case NUMPAD1:
+                        guess = 1;
+                        break;
+                    case DIGIT2:
+                    case NUMPAD2:
+                        guess = 2;
+                        break;
+                    case DIGIT3:
+                    case NUMPAD3:
+                        guess = 3;
+                        break;
+                    case DIGIT4:
+                    case NUMPAD4:
+                        guess = 4;
+                        break;
+                    default:
+                        guess = 0;
+                        break;
+                }
+                if (guess != 0) {
+                    resolveAnswer();
+                }
+            }
         }
     }
 
-    private void getGuess(ActionEvent e) {
-        //get clicked button //or typed number
-        //actionevent get source  welcher knopf, welche taste (1-4)
-        if (e.getSource() == btGuess1) {
+     public void getGuess(ActionEvent e) {
+        //checks which guess was made
+        //get clicked button
+        if (((Button) e.getSource()).getText().contains("1")) {
             guess = 1; //acording to clicked button
-        } else if (e.getSource() == btGuess2) {
-            guess = 2;
-        } else if (e.getSource() == btGuess3) {
-            guess = 3;
-        } else if (e.getSource() == btGuess4) {
-            guess = 4;
-        }
-
-    }
-
-    /*
-    public void handle(ActionEvent e) {
-       // int keyTyped = (int) (((KeyEvent)e).getCharacter());
-        switch (e.getSource()==1) {
-            case 1:
-                guess = 1;
-                break;
-            case 2:
-                guess = 1;
-                break;
-            case 3:
-                guess = 1;
-                break;
-            case 4:
-                guess = 1;
-                break;
+        } else if (((Button) e.getSource()).getText().contains("2")) {
+            guess = 2; //acording to clicked button
+        } else if (((Button) e.getSource()).getText().contains("3")) {
+            guess = 3; //acording to clicked button
+        } else if (((Button) e.getSource()).getText().contains("4")) {
+            guess = 4; //acording to clicked button
         }
     }
-     */
+  
     private void colorLabelsGREEN() {
         switch (correct) {
             case 1:
