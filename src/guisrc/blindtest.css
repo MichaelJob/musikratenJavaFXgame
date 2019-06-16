@@ -1,25 +1,120 @@
 /*
- * Blindtest CSS - mj
+ * MUSIKRATEN CSS - mj
  */
 
 .PlayerBackground{
     -fx-background-image: url("vinyl.jpg");
+    -fx-background-size: stretch;
 }
 
 .StartBackground{
     -fx-background-image: url("startbg.jpg");
+    -fx-background-size: stretch;
+}
+
+.GameScoreBackground{
+    -fx-background-color: black;
 }
 
 .StartText{
-    font-size:16px;
+    font-size: 16px;
     -fx-text-fill: whitesmoke;
 }
-
 
 .Game{
     -fx-text-fill: gainsboro;
 }
 
+.tool-bar:horizontal {
+-fx-background-color:
+    linear-gradient(to bottom, grey, black, #303030 );
+}
+
+.StartButtons{
+    -fx-background-color: transparent;
+    -fx-text-fill: whitesmoke;
+}
+
+.btnPref {        
+    -fx-background-color: transparent;
+    -fx-background-image: url("mr_pref.png");
+    -fx-background-size: 28 28;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left;   
+}
+
+.btnLevel {        
+    -fx-background-color: transparent;
+    -fx-background-image: url("mr_pref.png");
+    -fx-background-size: 28 28;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left;   
+}
+
+.ScoreButton {        
+    -fx-background-color: transparent;
+    -fx-background-image: url("vinylico.png");
+    -fx-background-size: stretch;
+    -fx-background-repeat: no-repeat;
+}
+
+.menu-item .label {
+    -fx-text-fill: whitesmoke;
+}
+
+.menu-item {
+     -fx-background-color: black;
+}
+
+.menu-item:focused {
+     -fx-background-color: grey;
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: mediumspringgreen;
+}
+
+.context-menu {
+    -fx-background-color: transparent;
+}
+
+//Game Buttons with Vinyl
+//disabeld(false):
+
+.GameButtons{
+    -fx-background-image: url("vinylplayer.png");
+    -fx-background-size: stretch;
+}
+//enabled: opacity none
+.GameButtons:enabled{
+    -fx-opacity: 1;
+}
+
+//after clicked set background transparent
+.GameButtons:focused{
+    -fx-opacity: 1;
+    -fx-background-color: transparent;
+}
+
+//after guess other buttons shall fade out and be deactivated (disable)
+.GameButtons:disabled{
+    -fx-opacity: 0.3;
+}
+
+//focused buttons with default button layout
+.button:focused {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5, 4, 3;
+}
+
 .Score{
     -fx-text-fill: whitesmoke;
+}
+
+.slider .thumb{
+    -fx-background-color: transparent;
+    -fx-background-image : url("guitarslider.png");   
+    -fx-padding: 32px; 
+    //half the img size prevents cropping
 }

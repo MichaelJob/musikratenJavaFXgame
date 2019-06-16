@@ -6,7 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,8 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -44,6 +41,16 @@ public class Main extends Application {
     public static List<PlayerUser> highScore = new ArrayList<>();
     //music path and files...
     private static String dir;
+       //gameScores (points pro Set of 10 Songs)
+    private static int gameScoreLeft = 0;
+    private static int gameScoreRight = 0;
+    private static int level = 1; //1=rookie (default), 2=nerd 3=expert
+    private static int expertTime = 2;  //seconds song is played in expert level
+    private static int nerdTime = 4;    //seconds song is played in nerd level
+    private static int genreChooser = 1; //default is 1:= all hardcoded genres; 2:= only metal&rock; 3:=no metal&rock ; 4:=Indie&Alternative
+    //boolean if Game play possible - will be turned off if less than 4 diffrent artist are selected in music collection
+    private static boolean playable = true;
+
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -51,22 +58,25 @@ public class Main extends Application {
         loadData();
         //import path data from file
         loadPath();
-        if (dir != null) {
-
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Info Blindtest - MusikRaten");
-            dialog.setContentText("It can take a while to search&seek all your mp3 Files. Be patient");
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
-            dialog.showAndWait();
-
-            //walk through directory and look for mp3 files
-            SongManager.walk(dir);
-            SongManager.createSongList();
-            SongManager.createGameSet();
-        }
+//        if (dir != null) {
+//
+//            Dialog<ButtonType> dialog = new Dialog<>();
+//            dialog.setTitle("Info Blindtest - MusikRaten");
+//            dialog.setContentText("It can take a while to search&seek all your mp3 Files. Be patient");
+//            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
+//            dialog.showAndWait();
+//
+//            //walk through directory and look for mp3 files
+//            SongManager.walk(dir);
+//            SongManager.createSongList();
+//            SongManager.createGameSet();
+//        }
         //get up and running
         stage.setTitle("MusikRaten");
-
+        //min window size
+        stage.setMinWidth(1024);
+        stage.setMinHeight(768);
+        stage.setResizable(true);
         stage.setScene(
                 createScene(
                         loadMainPane()
@@ -136,7 +146,7 @@ public class Main extends Application {
                     }
                 }
             } catch (IOException ex) {
-                //if loading fails (first start of game) of file got deleted
+                //if loading fails (first start of game) or file got deleted
                 try {
                     //create new PlayerUser objects and add them to List 
                     pl1 = new PlayerUser("Player 1");
@@ -172,20 +182,12 @@ public class Main extends Application {
                 dir = scanner.nextLine();
             }
         } catch (IOException e) {
-            //will fail on first start on new system - create file with windows pc default path
-            try {
-                try (PrintWriter out = new PrintWriter("musicpath.txt")) {
-                    out.print("C:/");
-                }
-                dir = "C:/";
-            } catch (IOException e3) {
-                //if this fails as well let user know to set a path
+            //will fail on first start on new system - let user know to set a path to his music
                 Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setTitle("Error Blindtest - MusikRaten");
-                dialog.setContentText("No music directory set. Please select a path." + e.getMessage() + e3.getMessage());
+                dialog.setTitle("Blindtest - MusikRaten");
+                dialog.setContentText("No music directory set. Please select a path to your music files.");
                 dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
                 dialog.showAndWait();
-            }
         }
     }
 
@@ -208,7 +210,7 @@ public class Main extends Application {
         }
     }
 
-    //Getter and Setter
+      //Getter and Setter
     public static String getDir() {
         return dir;
     }
@@ -244,4 +246,73 @@ public class Main extends Application {
     public static void setPlayerRight(PlayerUser pl) {
         PlayerRight = pl;
     }
+
+    //Getter
+
+    public static int getGameScoreLeft() {
+        return gameScoreLeft;
+    }
+
+    public static int getGameScoreRight() {
+        return gameScoreRight;
+    }
+
+    //Add 1 Up
+
+    public static void addGameScoreLeft() {
+        gameScoreLeft++;
+    }
+
+    public static void addGameScoreRight() {
+        gameScoreRight++;
+    }
+
+    //reSet to 0
+
+    public static void resetGameScore() {
+        //for both players
+        gameScoreLeft = 0;
+        gameScoreRight = 0;
+    }
+
+    
+    public static int getLevel() {
+        return level;
+    }
+
+    public static void setLevel(int l) {
+        level = l;
+    }
+
+    public static int getExpertTime() {
+        return expertTime;
+    }
+
+    public static void setExpertTime(int eT) {
+        expertTime = eT;
+    }
+
+    public static int getNerdTime() {
+        return nerdTime;
+    }
+
+    public static void setNerdTime(int nT) {
+        nerdTime = nT;
+    }
+
+    public static int getGenreChooser() {
+        return genreChooser;
+    }
+
+    public static void setGenreChooser(int genreChooser) {
+        Main.genreChooser = genreChooser;
+    }
+
+    public static boolean isPlayable() {
+        return playable;
+    }
+
+    public static void setPlayable(boolean playable) {
+        Main.playable = playable;
+    }   
 }

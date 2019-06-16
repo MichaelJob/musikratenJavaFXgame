@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?scenebuilder-stylesheet blindtest.css?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" styleClass="PlayerBackground" stylesheets="@../guisrc/blindtest.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.genreController">
+   <children>
+      <VBox layoutX="239.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="87.0" prefWidth="700.0">
+               <children>
+                  <Label prefHeight="67.0" prefWidth="453.0" styleClass="Score" text="Set your prefered genres - there are fantastic four alternatives to the recommended genre selection!" wrapText="true">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <VBox prefHeight="242.0" prefWidth="700.0">
+               <children>
+                  <Pane prefHeight="120.0" prefWidth="700.0">
+                     <children>
+                        <Slider fx:id="genreSlider" blockIncrement="1.0" layoutX="49.0" layoutY="47.0" majorTickUnit="1.0" max="5.0" maxWidth="600.0" min="1.0" minWidth="600.0" minorTickCount="0" prefHeight="68.0" prefWidth="600.0" showTickMarks="true" snapToTicks="true" styleClass="genreSlider" value="1.0" />
+                     </children>
+                  </Pane>
+                  <HBox alignment="CENTER" prefHeight="83.0" prefWidth="700.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="46.0" prefWidth="130.0" styleClass="Score" text="  recommended  genre selection" textAlignment="CENTER" wrapText="true" />
+                        <Label alignment="CENTER" prefWidth="130.0" styleClass="Score" text="the hard stuff aka Metal, Grunge, Punk..." textAlignment="CENTER" wrapText="true" />
+                        <Label alignment="CENTER" prefWidth="130.0" styleClass="Score" text="the not so hard stuff aka Rock, Pop, Oldies, Alternative, Blues, Indie..." textAlignment="CENTER" wrapText="true" />
+                        <Label alignment="CENTER" prefWidth="130.0" styleClass="Score" text="the other stuff aka Rap, Beat, Electro, HipHop, House..." textAlignment="CENTER" wrapText="true" />
+                        <Label alignment="CENTER" prefWidth="130.0" styleClass="Score" text="any mp3! - this can get embarassing for you!" textAlignment="CENTER" wrapText="true" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <HBox nodeOrientation="RIGHT_TO_LEFT">
+               <children>
+                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#handleBtnSave" onKeyPressed="#handleBtnSave" prefHeight="48.0" prefWidth="179.0" styleClass="StartButtons" text="Save and exit">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <graphic>
+                        <ImageView fx:id="btSave" fitHeight="28.0" fitWidth="28.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../guisrc/mr_play.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

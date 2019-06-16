@@ -11,121 +11,181 @@
 <?import javafx.scene.layout.*?>
 <?scenebuilder-stylesheet blindtest.css?>
 
-<AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.StartController">
-    <children>
-        <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#gotFocusAgain" prefHeight="600.0" prefWidth="800.0" styleClass="StartBackground" stylesheets="@../guisrc/blindtest.css">
-            <center>
-                <VBox alignment="CENTER" prefHeight="359.0" prefWidth="400.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Label fx:id="lblPlayer1" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="StartText" text="Player 1" textAlignment="CENTER">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="lblPlayer2" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="StartText" text="Player 2" textAlignment="CENTER">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="lblPlayer3" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="StartText" text="Player 3" textAlignment="CENTER">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                        <Label fx:id="lblPlayer4" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="StartText" text="Player 4" textAlignment="CENTER">
-                            <font>
-                                <Font size="18.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </VBox>
-            </center>
-            <bottom>
-                <Pane minHeight="100.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Label fx:id="lblDir" layoutY="35.0" prefHeight="30.0" prefWidth="800.0" text="" textFill="RED" visible="false">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Label>
-                    </children>
-                </Pane>
-            </bottom>
-            <top>
-                <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <items>
-                        <ToggleButton fx:id="bt2Player" minWidth="100.0" mnemonicParsing="false" onAction="#handlebt2Player" prefHeight="40.0" text="1 Player" />
-                        <Button minWidth="100.0" mnemonicParsing="false" onAction="#startGame" prefHeight="40.0" text="Play" />
-                        <Button minWidth="100.0" mnemonicParsing="false" onAction="#handleMenuHighScore" prefHeight="40.0" text="Hall of Fame" />
-                        <MenuButton fx:id="prefMenu" minWidth="100.0" mnemonicParsing="false" prefHeight="40.0" text="Preferences">
-                            <items>
-                                <MenuItem mnemonicParsing="false" onAction="#openPlayerNames" text="Set Player names.." />
-                                <MenuItem mnemonicParsing="false" onAction="#handleMenuMusicFolder" text="Set music folder.." />
-                                <MenuItem mnemonicParsing="false" onAction="#handleButtonAboutAction" text="About" />
-                            </items>
-                        </MenuButton>
-                        <Button fx:id="BtnExit" minWidth="100.0" mnemonicParsing="false" onAction="#handleBtnExit" prefHeight="40.0" text="Stop it!" />
+<AnchorPane id="AnchorPane" minHeight="768.0" minWidth="1024.0" stylesheets="@../guisrc/blindtest.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.StartController">
+   <children>
+      <BorderPane minHeight="768.0" minWidth="1024.0" onMouseMoved="#gotFocusAgain" styleClass="StartBackground" stylesheets="@../guisrc/blindtest.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <VBox alignment="CENTER" prefHeight="359.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="lblPlayer1" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="StartText" text="Player 1" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPlayer2" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="StartText" text="Player 2" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPlayer3" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="StartText" text="Player 3" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblPlayer4" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="StartText" text="Player 4" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </center>
+         <top>
+            <ToolBar minWidth="1024.0" prefHeight="40.0" stylesheets="@../guisrc/blindtest.css" BorderPane.alignment="CENTER">
+              <items>
+                  <ToggleButton fx:id="bt2Player" mnemonicParsing="false" onAction="#handlebt2Player" prefHeight="40.0" prefWidth="150.0" styleClass="StartButtons" stylesheets="@../guisrc/blindtest.css" text="1 Player" />
+                  <MenuButton fx:id="levelmenu" alignment="CENTER_RIGHT" contentDisplay="RIGHT" graphicTextGap="0.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="94.0" styleClass="btnLevel" text="Level" textFill="WHITE">
+                     <items>
+                        <RadioMenuItem fx:id="level1" mnemonicParsing="false" onAction="#setLevel" selected="true" text="Rookie">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="level" />
+                           </toggleGroup></RadioMenuItem>
+                        <RadioMenuItem fx:id="level2" mnemonicParsing="false" onAction="#setLevel" text="Freak" toggleGroup="$level" />
+                        <RadioMenuItem fx:id="level3" mnemonicParsing="false" onAction="#setLevel" text="Nerd" toggleGroup="$level" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="timeMenu" mnemonicParsing="false" onAction="#openTimeSettings" text="Time Settings" />
+                     </items>
+                  </MenuButton>
+                  <Button fx:id="btPlayGame" mnemonicParsing="false" onAction="#startGame" prefHeight="40.0" styleClass="StartButtons" stylesheets="@../guisrc/blindtest.css" text="Play it again, Sam">
+                     <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../guisrc/mr_play.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button mnemonicParsing="false" onAction="#handleMenuHighScore" prefHeight="40.0" prefWidth="150.0" styleClass="StartButtons" stylesheets="@../guisrc/blindtest.css" text="Hall of Fame">
+                     <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../guisrc/mr_star.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <MenuButton fx:id="prefMenu" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="40.0" prefWidth="132.0" styleClass="btnPref" text="Preferences" textFill="WHITE">                  
+                      <items>
+                      <MenuItem mnemonicParsing="false" onAction="#openPlayerNames" text="Set player names.." />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                      <MenuItem mnemonicParsing="false" onAction="#handleMenuMusicFolder" text="Set music folder.." />
+                        <MenuItem mnemonicParsing="false" onAction="#handleMenuGenre" text="Set music genre.." />
+                      <MenuItem mnemonicParsing="false" onAction="#handleMenuSearchAgain" text="Search&amp;Seek mp3 files again.." />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                      <MenuItem mnemonicParsing="false" onAction="#handleButtonAboutAction" text="About" />
                     </items>
-                </ToolBar>
-            </top>
-            <left>
-                <VBox fx:id="vBoxLeft" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <RadioButton fx:id="rbl1" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeRightPlayer" selected="true">
-                            <padding>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                            </padding>
-                            <toggleGroup>
-                                <ToggleGroup fx:id="left" />
-                            </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="rbl2" mnemonicParsing="false" onAction="#changeRightPlayer" toggleGroup="$left">
-                            <padding>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                            </padding>
-                        </RadioButton>
-                        <RadioButton fx:id="rbl3" mnemonicParsing="false" onAction="#changeRightPlayer" toggleGroup="$left">
-                            <padding>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                            </padding>
-                        </RadioButton>
-                        <RadioButton fx:id="rbl4" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeRightPlayer" toggleGroup="$left">
-                            <padding>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                            </padding>
-                        </RadioButton>
-                    </children>
-                </VBox>
-            </left>
-            <right>
-                <VBox fx:id="vBoxRight" alignment="CENTER" onMouseClicked="#changeLeftPlayer" prefHeight="200.0" prefWidth="100.0" visible="false" BorderPane.alignment="CENTER">
-                    <children>
-                        <RadioButton fx:id="rbr1" mnemonicParsing="false" onAction="#changeLeftPlayer">
-                            <padding>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                            </padding>
-                            <toggleGroup>
-                                <ToggleGroup fx:id="right" />
-                            </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="rbr2" mnemonicParsing="false" onAction="#changeLeftPlayer" selected="true" toggleGroup="$right">
-                            <padding>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                            </padding>
-                        </RadioButton>
-                        <RadioButton fx:id="rbr3" mnemonicParsing="false" onAction="#changeLeftPlayer" toggleGroup="$right">
-                            <padding>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                            </padding>
-                        </RadioButton>
-                        <RadioButton fx:id="rbr4" mnemonicParsing="false" onAction="#changeLeftPlayer" toggleGroup="$right">
-                            <padding>
-                                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                            </padding>
-                        </RadioButton>
-                    </children>
-                </VBox>
-            </right>
-        </BorderPane>
-    </children>
+                  </MenuButton>
+                  <Label fx:id="lblStatus" alignment="CENTER" minWidth="42.0" prefHeight="16.0" prefWidth="189.0" textAlignment="LEFT">
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor></Label>
+                  <Button fx:id="BtnExit" mnemonicParsing="false" onAction="#handleBtnExit" prefHeight="40.0" prefWidth="100.0" styleClass="StartButtons" stylesheets="@../guisrc/blindtest.css" text="Stop it!">
+                     <graphic>
+                        <ImageView fitHeight="28.0" fitWidth="28.0" preserveRatio="true">
+                           <image>
+                              <Image url="@../guisrc/mr_out.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+              </items>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ToolBar>
+         </top>
+         <left>
+            <VBox fx:id="vBoxLeft" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <RadioButton fx:id="rbl1" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeRightPlayer" selected="true">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="left" />
+                     </toggleGroup>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </RadioButton>
+                  <RadioButton fx:id="rbl2" mnemonicParsing="false" onAction="#changeRightPlayer" toggleGroup="$left">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </RadioButton>
+                  <RadioButton fx:id="rbl3" mnemonicParsing="false" onAction="#changeRightPlayer" toggleGroup="$left">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </RadioButton>
+                  <RadioButton fx:id="rbl4" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeRightPlayer" toggleGroup="$left">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </RadioButton>
+               </children>
+            </VBox>
+         </left>
+         <right>
+            <VBox fx:id="vBoxRight" alignment="CENTER" onMouseClicked="#changeLeftPlayer" prefHeight="200.0" prefWidth="100.0" visible="false" BorderPane.alignment="CENTER">
+               <children>
+                  <RadioButton fx:id="rbr1" mnemonicParsing="false" onAction="#changeLeftPlayer">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="right" />
+                     </toggleGroup>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </RadioButton>
+                  <RadioButton fx:id="rbr2" mnemonicParsing="false" onAction="#changeLeftPlayer" selected="true" toggleGroup="$right">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </RadioButton>
+                  <RadioButton fx:id="rbr3" mnemonicParsing="false" onAction="#changeLeftPlayer" toggleGroup="$right">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </RadioButton>
+                  <RadioButton fx:id="rbr4" mnemonicParsing="false" onAction="#changeLeftPlayer" toggleGroup="$right">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </RadioButton>
+               </children>
+            </VBox>
+         </right>
+         <bottom>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0" BorderPane.alignment="CENTER" />
+         </bottom>
+      </BorderPane>
+   </children>
 </AnchorPane>

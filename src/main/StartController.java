@@ -12,6 +12,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -73,7 +74,16 @@ public class StartController {
     Image image2 = new Image(getClass().getResourceAsStream("/guisrc/player2.png"));
     @FXML
     ToggleButton bt2Player = new ToggleButton("1 Player", new ImageView(image1));
-
+   //Menu with RadioMenuItem - ToggleGroup: level
+    @FXML
+    private ToggleGroup level; //level
+    @FXML
+    private RadioMenuItem level1; //rookie
+    @FXML
+    private RadioMenuItem level2; //nerd
+    @FXML
+    private RadioMenuItem level3; //expert
+    
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
@@ -252,6 +262,12 @@ public class StartController {
         }
     }
 
+       @FXML
+    private void handleMenuSearchAgain(){
+        SongManager.getSongFiles();
+    }
+    
+    
     //about info dialog
     @FXML
     private void handleButtonAboutAction(ActionEvent event) {
@@ -282,6 +298,28 @@ public class StartController {
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
             dialog.showAndWait();
             System.out.print(e.toString());
+        }
+    }
+    
+      //open window to set player names
+    @FXML
+    private void openTimeSettings(ActionEvent event) throws Exception {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/main/time.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setAlwaysOnTop(true);
+            stage.setTitle("MusikRaten - Time Settings");
+            stage.showAndWait();
+        } catch (Exception e) {
+             Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("An error occured on time settings. Cause:" + e.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
+            System.out.print(e.toString());         
         }
     }
 
@@ -329,12 +367,56 @@ public class StartController {
             dialog.showAndWait();
         }
     }
-
-    /* for debugging only
-    //get music path to folder containing mp3 files from Main class into label in start
-    @FXML
-    public void getMusicPath() {
-             lblDir.setText(Main.getDir());
+    
+       
+    //getLevelSettingfromMainClass on showing this scene
+    public void getLevel(){
+        switch (Main.getLevel()) {
+            case 1:
+                level1.setSelected(true);
+                break;
+            case 2:
+                level2.setSelected(true);
+                break;
+            case 3:
+                level3.setSelected(true);
+                break;
+            default:
+                break;
+        }
     }
-     */
+    
+    //save choosed Level to main class
+    @FXML
+    public void setLevel(){
+        if (level1.isSelected()){
+            Main.setLevel(1);
+        }else if (level2.isSelected()){
+            Main.setLevel(2);
+        } else if (level3.isSelected()){
+            Main.setLevel(3);
+        }
+    }
+    
+    //open genreChooser fxml
+    @FXML
+    private void handleMenuGenre(ActionEvent event) throws Exception {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/main/genre.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setAlwaysOnTop(true);
+            stage.setTitle("MusikRaten - Genre settings");
+            stage.showAndWait();
+        } catch (Exception e) {
+             Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setTitle("Error Blindtest - MusikRaten");
+            dialog.setContentText("An error occured in genre settings. Cause:" + e.getMessage());
+            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
+            dialog.showAndWait();
+        }
+    }
+  
 }

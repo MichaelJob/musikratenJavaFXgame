@@ -14,13 +14,14 @@ public class MusicNavigator {
     /**
      * Convenience constants for fxml layouts managed by the navigator.
      */
-    public static final String MAIN = "main.fxml";
+    public static final String MAIN = "Main.fxml";
     public static final String STARTFXML = "Start.fxml";
     public static final String GAMEFXML = "Game.fxml";
-    public static final String GAME2FXML = "game2.fxml";
+    public static final String GAME2FXML = "Game2.fxml";
     public static final String PLAYERFXML = "Player.fxml";
     public static final String HIGHSCORESFXML = "HighScore.fxml";
-
+    public static final String GAMESCOREFXML = "GameScore.fxml";
+    
     /**
      * The main application layout controller.
      */
