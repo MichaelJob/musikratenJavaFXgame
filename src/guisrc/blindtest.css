@@ -62,6 +62,11 @@
     -fx-text-fill: whitesmoke;
 }
 
+.menu-item:checked .label{
+    -fx-text-fill: springgreen;
+}
+
+
 .menu-item {
     -fx-background-color: black;
 }
