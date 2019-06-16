@@ -59,7 +59,7 @@ public class GameScoreController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("An error occured while showing GameScores. Cause:" + ex.getMessage());
             alert.initOwner((Stage) bClose.getScene().getWindow());
-            alert.showAndWait();  
+            alert.showAndWait();
         }
     }
 
@@ -74,17 +74,15 @@ public class GameScoreController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Oupps! An error occured while closing Game Scores. Cause:" + e.getMessage());
             alert.initOwner((Stage) bClose.getScene().getWindow());
-            alert.showAndWait();       
+            alert.showAndWait();
         }
     }
-    
+
     //show startfxml again
     @FXML
     public void closeGameScore() {
         MusicNavigator.loadVista(MusicNavigator.STARTFXML);
     }
-    
-    
 
     //set gamescore in label
     @FXML
@@ -126,17 +124,16 @@ public class GameScoreController implements Initializable {
         }
         circles.setEffect(new BoxBlur(10, 10, 3));
         Rectangle colors = new Rectangle(1024, 620,
-                
                 new LinearGradient(0f, 1f, 1f, 0f, true, CycleMethod.NO_CYCLE, new Stop[]{
-                    new Stop(0, Color.web("#f8bd55")),
-                    new Stop(0.14, Color.web("#c0fe56")),
-                    new Stop(0.28, Color.web("#5dfbc1")),
-                    new Stop(0.43, Color.web("#64c2f8")),
-                    new Stop(0.57, Color.web("#be4af7")),
-                    new Stop(0.71, Color.web("#ed5fc2")),
-                    new Stop(0.85, Color.web("#ef504c")),
-                    new Stop(1, Color.web("#f2660f")),}));
-        
+            new Stop(0, Color.web("#f8bd55")),
+            new Stop(0.14, Color.web("#c0fe56")),
+            new Stop(0.28, Color.web("#5dfbc1")),
+            new Stop(0.43, Color.web("#64c2f8")),
+            new Stop(0.57, Color.web("#be4af7")),
+            new Stop(0.71, Color.web("#ed5fc2")),
+            new Stop(0.85, Color.web("#ef504c")),
+            new Stop(1, Color.web("#f2660f")),}));
+
         Group blendModeGroup = new Group(new Group(new Rectangle(1024, 620, Color.TRANSPARENT), circles), colors);
         colors.setBlendMode(BlendMode.OVERLAY);
         GameScorePane.getChildren().add(blendModeGroup);
@@ -155,5 +152,5 @@ public class GameScoreController implements Initializable {
         });
         // play 30s of animation
         timeline.play();
-        }
+    }
 }

@@ -21,7 +21,7 @@ public class MusicNavigator {
     public static final String PLAYERFXML = "Player.fxml";
     public static final String HIGHSCORESFXML = "HighScore.fxml";
     public static final String GAMESCOREFXML = "GameScore.fxml";
-    
+
     /**
      * The main application layout controller.
      */

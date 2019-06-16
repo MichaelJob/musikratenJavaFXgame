@@ -8,8 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.RadioMenuItem;
@@ -74,7 +72,7 @@ public class StartController {
     Image image2 = new Image(getClass().getResourceAsStream("/guisrc/player2.png"));
     @FXML
     ToggleButton bt2Player = new ToggleButton("1 Player", new ImageView(image1));
-   //Menu with RadioMenuItem - ToggleGroup: level
+    //Menu with RadioMenuItem - ToggleGroup: level
     @FXML
     private ToggleGroup level; //level
     @FXML
@@ -83,7 +81,9 @@ public class StartController {
     private RadioMenuItem level2; //nerd
     @FXML
     private RadioMenuItem level3; //expert
-    
+
+    private myDialog myD = new myDialog();
+
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
@@ -92,7 +92,6 @@ public class StartController {
     public void initialize() {
         //some more style to the togglebutton
         bt2Player.setGraphic(new ImageView(image1));
-        bt2Player.setStyle("-fx-base: salmon;");
         //get state of toggleButton 1 or 2 Player from main.java   //on startup default is 1 Player - after playing in 2 Player this will keep 2 Player mode set
         if (Main.isPlayerMode2()) {  // 2 Player Mode
             bt2Player.setSelected(true);    //set ToggleButton pressed
@@ -101,15 +100,12 @@ public class StartController {
             bt2Player.setSelected(false);   //set ToggleButton unpressed
             handlebt2Player();              //make changes for 1 Player mode
         }
+        getLevel();                     //get Level from Main Class
         try {
             setPlayerNames();               //write names from player of main class into labels
             // getMusicPath();         //debugging
         } catch (Exception ex) {
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Error Blindtest - MusikRaten");
-            dialog.setContentText("An error occured Cause:" + ex.getMessage());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-            dialog.showAndWait();
+            myD.showDialog("An error occured Cause:" + ex.getMessage());
         }
     }
 
@@ -205,77 +201,55 @@ public class StartController {
         try {
             MusicNavigator.loadVista(MusicNavigator.HIGHSCORESFXML);
         } catch (Exception e) {
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Error Blindtest - MusikRaten");
-            dialog.setContentText("Bummer! An error occured while opening High Scores. Cause:" + e.getMessage());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-            dialog.showAndWait();
+            myD.showDialog("Bummer! An error occured while opening High Scores. Cause:" + e.getMessage());
         }
     }
 
     //set path to folder containing mp3 files and write it into label in start and write it into file
     @FXML
     private void handleMenuMusicFolder() {
+        String oldPath = Main.getDir();
+        String newPath = null;
         try {
             Stage stage = (Stage) BtnExit.getScene().getWindow();
             DirectoryChooser dc = new DirectoryChooser();
             File selectedDirectory = dc.showDialog(stage);
-            if (Main.getDir().equals(selectedDirectory.getAbsolutePath())) {
-                //still the same selected - do nothing
-                return;
-            } else {
-                if (selectedDirectory == null) {
-                    //lblDir.setText("No Directory selected"); for Debugging only
-                } else {
-                    Main.setDir(selectedDirectory.getAbsolutePath());
-                    //lblDir.setText(Main.getDir()); 
-                    //walk through dir again
-                    Dialog<ButtonType> dialog = new Dialog<>();
-                    dialog.setTitle("Error Blindtest - MusikRaten");
-                    dialog.setContentText("A new music path folder is set. It can take a while to search&seek all your mp3 Files. Be patient");
-                    dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-                    dialog.showAndWait();
-                    SongManager.walk(Main.getDir());
-                    SongManager.createSongList();
-                    SongManager.createGameSet();
-                }
-
-            }
-            //write path in file
+            newPath = selectedDirectory.getAbsolutePath();
+            //set new dir in Main.dir
+            Main.setDir(newPath);
+            // write path in file for next start of app (do this anyway, no matter if the same dir would be selected again)
             try {
                 PrintWriter out = new PrintWriter("musicpath.txt");
-                out.print(Main.getDir());
+                out.print(newPath);
                 out.close();
             } catch (Exception e) {
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setTitle("Error Blindtest - MusikRaten");
-                dialog.setContentText("An error occured while saving music path. Cause:" + e.getMessage());
-                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-                dialog.showAndWait();
+                myD.showDialog("An error occured while saving music path. Cause:" + e.getMessage());
             }
+            //does nothing if still the same dir is selected
+            if (!oldPath.equals(newPath)) {
+                // a new Path is set - walk through dir (again)
+                SongManager.getSongFiles();
+            }
+
         } catch (Exception e) {
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Error Blindtest - MusikRaten");
-            dialog.setContentText("An error occured in the DirectoryChooser. Try again. Cause:" + e.getMessage());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-            dialog.showAndWait();
+            //remind user if no path is choosen (user clicked cancel in directory chooser and no dir was set before)
+            if (Main.getDir().equals("")) {
+                myD.showDialog("You did not choose a directory. Bummer. Try again, please.");
+                //call yourself again
+                handleMenuMusicFolder();
+            }
         }
     }
 
-       @FXML
-    private void handleMenuSearchAgain(){
+    @FXML
+    private void handleMenuSearchAgain() {
         SongManager.getSongFiles();
     }
-    
-    
+
     //about info dialog
     @FXML
     private void handleButtonAboutAction(ActionEvent event) {
-        Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("About Blindtest - MusikRaten");
-        dialog.setContentText("This is a music guessing game. Be as quick as you can, if you want to compede in real life. Build with NetBeans, Java8, JavaFX. Michael Job 4.2015 - ported to Java12 JavaFX12 6.2019");
-        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-        dialog.showAndWait();
+        myD.showDialog("This is a music guessing game. Be as quick as you can, if you want to compede in real life. Build with NetBeans, Java8, JavaFX. Michael Job 4.2015 - ported to Java12 JavaFX12 6.2019");
     }
 
     //open window to set player names
@@ -292,16 +266,11 @@ public class StartController {
             stage.showAndWait();
 
         } catch (Exception e) {
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Error Blindtest - MusikRaten");
-            dialog.setContentText("An error occured while opening Player names. Cause:" + e.getMessage());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-            dialog.showAndWait();
-            System.out.print(e.toString());
+            myD.showDialog("An error occured while opening Player names. Cause:" + e.getMessage());
         }
     }
-    
-      //open window to set player names
+
+    //open window to set player names
     @FXML
     private void openTimeSettings(ActionEvent event) throws Exception {
         try {
@@ -314,12 +283,7 @@ public class StartController {
             stage.setTitle("MusikRaten - Time Settings");
             stage.showAndWait();
         } catch (Exception e) {
-             Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Error Blindtest - MusikRaten");
-            dialog.setContentText("An error occured on time settings. Cause:" + e.getMessage());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-            dialog.showAndWait();
-            System.out.print(e.toString());         
+            myD.showDialog("An error occured on time settings. Cause:" + e.getMessage());
         }
     }
 
@@ -327,21 +291,25 @@ public class StartController {
     @FXML
     private void startGame(ActionEvent event) throws Exception {
         saveSelectedPlayerNames();
-        try {
-            if (bt2Player.isSelected()) {
-                //ToggleButton selected = 2 Playermode
-                MusicNavigator.loadVista(MusicNavigator.GAME2FXML);
-            } else {
-                //ToggleButton NOT selected = 1 Playermode
-                MusicNavigator.loadVista(MusicNavigator.GAMEFXML);
+        if (Main.getDir().equals("")) {
+            myD.showDialog("Please choose the path to your music before playing!");
+            handleMenuMusicFolder();
+        } else if (Main.isPlayable()) {
+            try {
+                if (bt2Player.isSelected()) {
+                    //ToggleButton selected = 2 Playermode
+                    MusicNavigator.loadVista(MusicNavigator.GAME2FXML);
+                } else {
+                    //ToggleButton NOT selected = 1 Playermode
+                    MusicNavigator.loadVista(MusicNavigator.GAMEFXML);
+                }
+            } catch (Exception e) {
+                myD.showDialog("An error occured while opening game mode. Cause:" + e.getMessage());
             }
-        } catch (Exception e) {
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Error Blindtest - MusikRaten");
-            dialog.setContentText("An error occured while opening game mode. Cause:" + e.getMessage());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-            dialog.showAndWait();
+        } else {
+            myD.showDialog("Bummer. There is not enough music to play this game. Change genre selection or path to music.");
         }
+
     }
 
     //refresh player names after gaining focus again (should be invoked after closing player fxml
@@ -360,17 +328,12 @@ public class StartController {
             lblPlayer3.setText(Main.pl3.getName());
             lblPlayer4.setText(Main.pl4.getName());
         } catch (Exception e) {
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Error Blindtest - MusikRaten");
-            dialog.setContentText("An error occured in handling player names. Cause:" + e.getMessage());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-            dialog.showAndWait();
+            myD.showDialog("An error occured in handling player names. Cause:" + e.getMessage());
         }
     }
-    
-       
+
     //getLevelSettingfromMainClass on showing this scene
-    public void getLevel(){
+    public void getLevel() {
         switch (Main.getLevel()) {
             case 1:
                 level1.setSelected(true);
@@ -385,19 +348,19 @@ public class StartController {
                 break;
         }
     }
-    
+
     //save choosed Level to main class
     @FXML
-    public void setLevel(){
-        if (level1.isSelected()){
+    public void setLevel() {
+        if (level1.isSelected()) {
             Main.setLevel(1);
-        }else if (level2.isSelected()){
+        } else if (level2.isSelected()) {
             Main.setLevel(2);
-        } else if (level3.isSelected()){
+        } else if (level3.isSelected()) {
             Main.setLevel(3);
         }
     }
-    
+
     //open genreChooser fxml
     @FXML
     private void handleMenuGenre(ActionEvent event) throws Exception {
@@ -411,12 +374,8 @@ public class StartController {
             stage.setTitle("MusikRaten - Genre settings");
             stage.showAndWait();
         } catch (Exception e) {
-             Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Error Blindtest - MusikRaten");
-            dialog.setContentText("An error occured in genre settings. Cause:" + e.getMessage());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-            dialog.showAndWait();
+            myD.showDialog("An error occured in genre settings. Cause:" + e.getMessage());
         }
     }
-  
+
 }

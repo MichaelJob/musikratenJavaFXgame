@@ -44,7 +44,7 @@ public class Game2Controller {
     private int gameScoreLeft = 0;  //LeftPlayer Score in this game only (will not be saved) - allover Scores are stored in Player
     private int gameScoreRight = 0;  //RightPlayer Score in this game only (will not be saved) - allover Scores are stored in Player
     private Image noCover = new Image("/guisrc/noCover.jpg"); //no album art cover picture
- 
+
 //FXML Elements
     @FXML
     Button btExit;
@@ -91,7 +91,7 @@ public class Game2Controller {
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
      */
-  @FXML
+    @FXML
     public void initialize() {
         try {
             //get Player names
@@ -102,7 +102,7 @@ public class Game2Controller {
             //play first song
             playFirst();
         } catch (Exception ex) {
-             Dialog<ButtonType> dialog = new Dialog<>();
+            Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setTitle("Error Blindtest - MusikRaten");
             dialog.setContentText("An error occured Cause:" + ex.getMessage());
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
@@ -110,7 +110,7 @@ public class Game2Controller {
         }
     }
 
-     public void playFirst() {
+    public void playFirst() {
         lblSong1.setTextFill(Color.LIGHTGREY);
         lblSong2.setTextFill(Color.LIGHTGREY);
         lblSong3.setTextFill(Color.LIGHTGREY);
@@ -141,8 +141,7 @@ public class Game2Controller {
         });
     }
 
-
-   public void playNext() {
+    public void playNext() {
         Platform.runLater(() -> {
             btNext.requestFocus();
         });
@@ -168,7 +167,7 @@ public class Game2Controller {
                 handleBtnExit();
                 return;
             }
-        //do it again, Sam
+            //do it again, Sam
             //get 4 Songs
             Songs4Game = SongManager.get4Songs();
             lblSong1.setText(Songs4Game.get(0).getArtist());
@@ -287,10 +286,10 @@ public class Game2Controller {
                 lblCredit.setText(lblPlayerLeft.getText() + " failed!");
             }
         }
-          //set focus to play next button as a default
-              Platform.runLater(() -> {
-                 btNext.requestFocus();
-               });
+        //set focus to play next button as a default
+        Platform.runLater(() -> {
+            btNext.requestFocus();
+        });
         solveGame();    //if game solved show it
     }
 
@@ -334,7 +333,7 @@ public class Game2Controller {
         lblScores.setText(Integer.toString(gameScoreLeft) + " : " + Integer.toString(gameScoreRight));
     }
 
-   public void leftButtonsFadeOut() {
+    public void leftButtonsFadeOut() {
         btGuess1.setDisable(true);
         btGuess2.setDisable(true);
         btGuess3.setDisable(true);
@@ -366,30 +365,30 @@ public class Game2Controller {
             case 6:
                 lblSong1.setTextFill(Color.MEDIUMSPRINGGREEN);
                 lblSong1.setText("Song: " + Songs4Game.get(0).getTitle() + '\n' + "Artist: " + Songs4Game.get(0).getArtist() + '\n' + "Album: " + Songs4Game.get(0).getAlbum());
-                 imgCover.setImage(getAlbumArt(correct));
+                imgCover.setImage(getAlbumArt(correct));
                 break;
             case 2:
             case 7:
                 lblSong2.setTextFill(Color.MEDIUMSPRINGGREEN);
                 lblSong2.setText("Song: " + Songs4Game.get(1).getTitle() + '\n' + "Artist: " + Songs4Game.get(1).getArtist() + '\n' + "Album: " + Songs4Game.get(1).getAlbum());
-                 imgCover.setImage(getAlbumArt(correct));
+                imgCover.setImage(getAlbumArt(correct));
                 break;
             case 3:
             case 8:
                 lblSong3.setTextFill(Color.MEDIUMSPRINGGREEN);
                 lblSong3.setText("Song: " + Songs4Game.get(2).getTitle() + '\n' + "Artist: " + Songs4Game.get(2).getArtist() + '\n' + "Album: " + Songs4Game.get(2).getAlbum());
-                 imgCover.setImage(getAlbumArt(correct));
+                imgCover.setImage(getAlbumArt(correct));
                 break;
             case 4:
             case 9:
                 lblSong4.setTextFill(Color.MEDIUMSPRINGGREEN);
                 lblSong4.setText("Song: " + Songs4Game.get(3).getTitle() + '\n' + "Artist: " + Songs4Game.get(3).getArtist() + '\n' + "Album: " + Songs4Game.get(3).getAlbum());
-                 imgCover.setImage(getAlbumArt(correct));
+                imgCover.setImage(getAlbumArt(correct));
                 break;
         }
     }
 
-     //close stage
+    //close stage
     @FXML
     private void handleBtnExit() {
         //end game play
@@ -405,50 +404,50 @@ public class Game2Controller {
             MusicNavigator.loadVista(MusicNavigator.STARTFXML);
         }
     }
-    
-    
-      //stop song after * seconds according to level
+
+    //stop song after * seconds according to level
     private void muteLevel() {
         //if (Main.getLevel() == 1) do nothing - Rookies can listen forever
         if (Main.getLevel() == 2) {
             mediaPlayer.setStopTime(Duration.seconds(Main.getNerdTime()));
         } else if (Main.getLevel() == 3) {
-           mediaPlayer.setStopTime(Duration.seconds(Main.getExpertTime()));
+            mediaPlayer.setStopTime(Duration.seconds(Main.getExpertTime()));
         }
-        
+
     }
-    
-     //play Song again after voted (only in nerd and expert mode)
+
+    //play Song again after voted (only in nerd and expert mode)
     private void playAgain() {
         if (Main.getLevel() == 1) {
             mediaPlayer.setVolume(0.7);//lower volume
-        }else if (Main.getLevel() == 2) {
+        } else if (Main.getLevel() == 2) {
             //if still running stop it first (if voted faster than song was stopped)
             mediaPlayer.stop();
             //start new
-            mediaPlayer = new MediaPlayer(media);  
+            mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setVolume(0.7);//lower volume
             mediaPlayer.setStartTime(Duration.seconds(Main.getNerdTime()));//start where we stopped
             mediaPlayer.play();
-        }else if (Main.getLevel() == 3) {
+        } else if (Main.getLevel() == 3) {
             //if still running stop it first (if voted faster than song was stopped)
             mediaPlayer.stop();
             //start new
-            mediaPlayer = new MediaPlayer(media);  
+            mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setVolume(0.7);//lower volume
             //start from scratch again
             mediaPlayer.play();
         }
     }
-   //get album art - cover
+    //get album art - cover
+
     private Image getAlbumArt(int correct) {
         BufferedImage bf = null;
         WritableImage wr = null;
         //Byte Array of mp3 song gives us a bufferd image
         try {
-            bf = ImageIO.read(new ByteArrayInputStream(Songs4Game.get(correct-1).getCover()));
+            bf = ImageIO.read(new ByteArrayInputStream(Songs4Game.get(correct - 1).getCover()));
         } catch (Exception ex) {
-            bf=null;
+            bf = null;
         }
         //to show in JavaFX we need a real image - Pixelwriter paints WritableImage (extends Image) out of buffered image
         if (bf != null) {
@@ -460,7 +459,7 @@ public class Game2Controller {
                 }
             }
             return wr;
-        }else {
+        } else {
             return noCover;
         }
     }

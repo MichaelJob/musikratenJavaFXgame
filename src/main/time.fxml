@@ -12,101 +12,101 @@
 <?scenebuilder-stylesheet blindtest.css?>
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="700.0" styleClass="PlayerBackground" stylesheets="@../guisrc/blindtest.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.timeController">
-   <children>
-      <VBox layoutX="239.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label styleClass="Score" text="Set the time in seconds each song will be played in &quot;Nerd&quot; and &quot;Expert&quot; level:">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label styleClass="Score" text="Rookies can listen as long as they want to... that is the whole song." textFill="#ffaa00">
-                     <padding>
+    <children>
+        <VBox layoutX="239.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label styleClass="Score" text="Set the time in seconds each song will be played in &quot;Nerd&quot; and &quot;Expert&quot; level:">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label styleClass="Score" text="Nerds can only listen to the song for how many seconds?" textFill="#ffaa00">
-                     <padding>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label styleClass="Score" text="Rookies can listen as long as they want to... that is the whole song." textFill="#ffaa00">
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfNerdTime" alignment="CENTER" prefHeight="30.0" prefWidth="50.0" text="4">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label styleClass="Score" text="Experts can only listen to the song for how many seconds?" textFill="#ffaa00">
-                     <padding>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label styleClass="Score" text="Nerds can only listen to the song for how many seconds?" textFill="#ffaa00">
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="tfNerdTime" alignment="CENTER" prefHeight="30.0" prefWidth="50.0" text="4">
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </TextField>
+                    </children>
+                    <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="tfExpertTime" alignment="CENTER" prefHeight="30.0" prefWidth="50.0" text="2">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </HBox>
-            <HBox nodeOrientation="RIGHT_TO_LEFT">
-               <children>
-                  <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#handleBtnSave" onKeyPressed="#handleBtnSave" prefHeight="48.0" prefWidth="179.0" styleClass="StartButtons" text="Save and exit">
-                     <padding>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label styleClass="Score" text="Experts can only listen to the song for how many seconds?" textFill="#ffaa00">
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                            <font>
+                                <Font name="System Bold" size="13.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="tfExpertTime" alignment="CENTER" prefHeight="30.0" prefWidth="50.0" text="2">
+                            <HBox.margin>
+                                <Insets />
+                            </HBox.margin>
+                        </TextField>
+                    </children>
+                    <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                     <HBox.margin>
+                    </padding>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                     <graphic>
-                        <ImageView fx:id="btSave" fitHeight="28.0" fitWidth="28.0" preserveRatio="true">
-                           <image>
-                              <Image url="@../guisrc/mr_play.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </children>
+                    </padding>
+                </HBox>
+                <HBox nodeOrientation="RIGHT_TO_LEFT">
+                    <children>
+                        <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#handleBtnSave" onKeyPressed="#handleBtnSave" prefHeight="48.0" prefWidth="179.0" styleClass="StartButtons" text="Save and exit">
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </padding>
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </HBox.margin>
+                            <graphic>
+                                <ImageView fx:id="btSave" fitHeight="28.0" fitWidth="28.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../guisrc/mr_play.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

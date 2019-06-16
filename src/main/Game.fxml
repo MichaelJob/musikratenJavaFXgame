@@ -12,145 +12,149 @@
 <?scenebuilder-stylesheet blindtest.css?>
 
 <AnchorPane id="AnchorPane" onKeyPressed="#onKeyPressed" stylesheets="@../guisrc/blindtest.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.GameController">
-   <children>
-      <BorderPane styleClass="PlayerBackground" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <VBox alignment="CENTER" prefWidth="400.0" styleClass="Game" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox prefHeight="80.0">
-                     <children>
-                        <Pane minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="80.0" />
-                        <Label fx:id="lblSongQuestion" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="Who's song is it?" textAlignment="CENTER">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
+    <children>
+        <BorderPane styleClass="PlayerBackground" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <center>
+                <VBox alignment="CENTER" prefWidth="400.0" styleClass="Game" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox prefHeight="80.0">
+                            <children>
+                                <Pane minHeight="80.0" minWidth="80.0" prefHeight="80.0" prefWidth="80.0" />
+                                <Label fx:id="lblSongQuestion" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="Who's song is it?" textAlignment="CENTER">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox fillHeight="false" prefHeight="80.0">
+                            <children>
+                                <ImageView fx:id="imgCover1" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+                                <Label fx:id="lblSong1" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="1" textAlignment="CENTER" wrapText="true">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox fillHeight="false" prefHeight="80.0">
+                            <children>
+                                <ImageView fx:id="imgCover2" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+                                <Label fx:id="lblSong2" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="2" textAlignment="CENTER" wrapText="true">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox fillHeight="false" prefHeight="80.0">
+                            <children>
+                                <ImageView fx:id="imgCover3" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+                                <Label fx:id="lblSong3" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="3" textAlignment="CENTER" wrapText="true">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox fillHeight="false" prefHeight="80.0">
+                            <children>
+                                <ImageView fx:id="imgCover4" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
+                                <Label fx:id="lblSong4" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="4" textAlignment="CENTER" wrapText="true">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="60.0">
+                            <children>
+                                <Pane minHeight="60.0" minWidth="80.0" prefHeight="60.0" prefWidth="80.0" />
+                                <Label fx:id="lblCredit" alignment="CENTER" minHeight="30.0" prefWidth="800.0" textAlignment="CENTER" textFill="#f9ff00">
+                                    <font>
+                                        <Font size="18.0" />
+                                    </font>
+                                    <padding>
+                                        <Insets top="30.0" />
+                                    </padding>
+                                </Label>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </center>
+            <top>
+                <ToolBar BorderPane.alignment="CENTER">
+                    <items>
+                        <Button fx:id="btNext" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#playNext" prefWidth="600.0" styleClass="StartButtons" text="Play the next Song, Sam - we do not play it again..." textAlignment="CENTER">
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                            <graphic>
+                                <ImageView fitHeight="28.0" fitWidth="28.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../guisrc/mr_next.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Pane prefWidth="20.0" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="BtnExit" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleBtnExit" styleClass="StartButtons" text="End Game" textAlignment="CENTER">
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                            </padding>
+                            <graphic>
+                                <ImageView fitHeight="28.0" fitWidth="28.0" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../guisrc/mr_stop.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </items>
+                </ToolBar>
+            </top>
+            <left>
+                <VBox alignment="CENTER" minWidth="160.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label fx:id="lPlayer" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" styleClass="Game" text="make an educated guess:" textAlignment="CENTER" wrapText="true">
+                            <font>
+                                <Font size="12.0" />
+                            </font>
                         </Label>
-                     </children>
-                  </HBox>
-                  <HBox fillHeight="false" prefHeight="80.0">
-                     <children>
-                        <ImageView fx:id="imgCover1" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="lblSong1" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="1" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox fillHeight="false" prefHeight="80.0">
-                     <children>
-                        <ImageView fx:id="imgCover2" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="lblSong2" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="2" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox fillHeight="false" prefHeight="80.0">
-                     <children>
-                        <ImageView fx:id="imgCover3" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="lblSong3" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="3" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox fillHeight="false" prefHeight="80.0">
-                     <children>
-                        <ImageView fx:id="imgCover4" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="lblSong4" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" prefWidth="800.0" styleClass="Game" text="4" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="60.0">
-                     <children>
-                        <Pane minHeight="60.0" minWidth="80.0" prefHeight="60.0" prefWidth="80.0" />
-                        <Label fx:id="lblCredit" alignment="CENTER" minHeight="30.0" prefWidth="800.0" textAlignment="CENTER" textFill="#f9ff00">
-                           <font>
-                              <Font size="18.0" />
-                           </font>
-                           <padding>
-                              <Insets top="30.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </center>
-         <top>
-            <ToolBar BorderPane.alignment="CENTER">
-              <items>
-                  <Button fx:id="btNext" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#playNext" prefWidth="600.0" styleClass="StartButtons" text="Play the next Song, Sam - we do not play it again..." textAlignment="CENTER">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                     <graphic>
-                        <ImageView fitHeight="28.0" fitWidth="28.0" preserveRatio="true">
-                           <image>
-                              <Image url="@../guisrc/mr_next.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Pane prefWidth="20.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="BtnExit" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#handleBtnExit" styleClass="StartButtons" text="End Game" textAlignment="CENTER">
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                     <graphic>
-                        <ImageView fitHeight="28.0" fitWidth="28.0" preserveRatio="true">
-                           <image>
-                              <Image url="@../guisrc/mr_stop.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-              </items>
-            </ToolBar>
-         </top>
-         <left>
-            <VBox alignment="CENTER" minWidth="160.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label fx:id="lPlayer" alignment="CENTER" contentDisplay="CENTER" minHeight="80.0" styleClass="Game" text="make an educated guess:" textAlignment="CENTER" wrapText="true">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="btGuess1" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" styleClass="GameButtons" text="1">
-                     <VBox.margin>
-                        <Insets bottom="1.0" top="1.0" />
-                     </VBox.margin></Button>
-                  <Button fx:id="btGuess2" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" styleClass="GameButtons" text="2">
-                     <VBox.margin>
-                        <Insets bottom="1.0" top="1.0" />
-                     </VBox.margin></Button>
-                  <Button fx:id="btGuess3" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" styleClass="GameButtons" text="3">
-                     <VBox.margin>
-                        <Insets bottom="1.0" top="1.0" />
-                     </VBox.margin></Button>
-                  <Button fx:id="btGuess4" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" styleClass="GameButtons" text="4">
-                     <VBox.margin>
-                        <Insets bottom="1.0" top="1.0" />
-                     </VBox.margin></Button>
-                  <Pane minHeight="60.0" />
-               </children>
-            </VBox>
-         </left>
-         <right>
-            <Pane prefWidth="240.0" BorderPane.alignment="CENTER" />
-         </right>
-         <bottom>
-            <Pane minHeight="50.0" BorderPane.alignment="CENTER" />
-         </bottom>
-      </BorderPane>
-   </children>
+                        <Button fx:id="btGuess1" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" styleClass="GameButtons" text="1">
+                            <VBox.margin>
+                                <Insets bottom="1.0" top="1.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="btGuess2" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" styleClass="GameButtons" text="2">
+                            <VBox.margin>
+                                <Insets bottom="1.0" top="1.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="btGuess3" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" styleClass="GameButtons" text="3">
+                            <VBox.margin>
+                                <Insets bottom="1.0" top="1.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Button fx:id="btGuess4" minHeight="80.0" minWidth="80.0" mnemonicParsing="false" onAction="#checkAnswer" styleClass="GameButtons" text="4">
+                            <VBox.margin>
+                                <Insets bottom="1.0" top="1.0" />
+                            </VBox.margin>
+                        </Button>
+                        <Pane minHeight="60.0" />
+                    </children>
+                </VBox>
+            </left>
+            <right>
+                <Pane prefWidth="240.0" BorderPane.alignment="CENTER" />
+            </right>
+            <bottom>
+                <Pane minHeight="50.0" BorderPane.alignment="CENTER" />
+            </bottom>
+        </BorderPane>
+    </children>
 </AnchorPane>

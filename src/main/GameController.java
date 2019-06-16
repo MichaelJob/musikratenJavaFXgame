@@ -75,6 +75,7 @@ public class GameController {
     ImageView imgCover3;
     @FXML
     ImageView imgCover4;
+
     /**
      * Initializes the controller class. This method is automatically called
      * after the fxml file has been loaded.
@@ -94,7 +95,7 @@ public class GameController {
         }
     }
 
-   public void playFirst() {
+    public void playFirst() {
         lblSong1.setTextFill(Color.LIGHTGREY);
         lblSong2.setTextFill(Color.LIGHTGREY);
         lblSong3.setTextFill(Color.LIGHTGREY);
@@ -187,8 +188,8 @@ public class GameController {
         }
 
     }
-    
-      //stop song after * seconds according to level
+
+    //stop song after * seconds according to level
     private void muteLevel() {
         //if (Main.getLevel() == 1) do nothing - Rookies can listen forever
         if (Main.getLevel() == 2) {
@@ -198,8 +199,8 @@ public class GameController {
         }
 
     }
-    
-      //play Song again after voted (only in nerd and expert mode)
+
+    //play Song again after voted (only in nerd and expert mode)
     private void playAgain() {
         if (Main.getLevel() == 1) {
             mediaPlayer.setVolume(0.7);//lower volume
@@ -221,7 +222,7 @@ public class GameController {
             mediaPlayer.play();
         }
     }
-    
+
     //check answer
     @FXML
     private void checkAnswer(ActionEvent e) {
@@ -230,8 +231,8 @@ public class GameController {
             resolveAnswer();
         }
     }
-    
-  //check answer guess is either set by buttons or typed keys already
+
+    //check answer guess is either set by buttons or typed keys already
     @FXML
     private void resolveAnswer() {
         //lower volume and make sure you can listen to music again...
@@ -255,11 +256,11 @@ public class GameController {
         //Buttons Disable
         disableButtons(guess);
     }
-    
-     @FXML
+
+    @FXML
     public void onKeyPressed(KeyEvent ae) {
         //checks which guess was made by keystroke
-        if (!voted) {                  
+        if (!voted) {
             if (null != ae.getCode()) {
                 switch (ae.getCode()) {
                     case DIGIT1:
@@ -289,7 +290,7 @@ public class GameController {
         }
     }
 
-     public void getGuess(ActionEvent e) {
+    public void getGuess(ActionEvent e) {
         //checks which guess was made
         //get clicked button
         if (((Button) e.getSource()).getText().contains("1")) {
@@ -302,8 +303,8 @@ public class GameController {
             guess = 4; //acording to clicked button
         }
     }
-  
- private void disableButtons(int guess) {
+
+    private void disableButtons(int guess) {
         //disable other buttons (not the clicked one) so, clicking other buttons is of no action and style settings are taking place
         //guess is clicked button
         if (guess == 1) {
@@ -349,7 +350,7 @@ public class GameController {
         getAlbumArt();
     }
 
-     //get album art - cover
+    //get album art - cover
     private void getAlbumArt() {
         BufferedImage bf = null;
         WritableImage wr = null;
@@ -388,7 +389,7 @@ public class GameController {
                 }
 
             } else {
-            //if no cover art is in mp3 tag - set default no album art cover pic
+                //if no cover art is in mp3 tag - set default no album art cover pic
                 switch (i) {
                     case 0:
                         imgCover1.setImage(noCover);
@@ -406,7 +407,7 @@ public class GameController {
             }
         }
     }
-    
+
     private void colorLabelsRED() {
         switch (guess) {
             case 1:

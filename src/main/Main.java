@@ -8,6 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,7 +43,7 @@ public class Main extends Application {
     public static List<PlayerUser> highScore = new ArrayList<>();
     //music path and files...
     private static String dir;
-       //gameScores (points pro Set of 10 Songs)
+    //gameScores (points pro Set of 10 Songs)
     private static int gameScoreLeft = 0;
     private static int gameScoreRight = 0;
     private static int level = 1; //1=rookie (default), 2=nerd 3=expert
@@ -50,40 +52,33 @@ public class Main extends Application {
     private static int genreChooser = 1; //default is 1:= all hardcoded genres; 2:= only metal&rock; 3:=no metal&rock ; 4:=Indie&Alternative
     //boolean if Game play possible - will be turned off if less than 4 diffrent artist are selected in music collection
     private static boolean playable = true;
-
+    private myDialog myD = new myDialog();
 
     @Override
     public void start(Stage stage) throws Exception {
         //import player data from file
         loadData();
-        //import path data from file
+        //import path data from file - path will be read to Variable dir
         loadPath();
-//        if (dir != null) {
-//
-//            Dialog<ButtonType> dialog = new Dialog<>();
-//            dialog.setTitle("Info Blindtest - MusikRaten");
-//            dialog.setContentText("It can take a while to search&seek all your mp3 Files. Be patient");
-//            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
-//            dialog.showAndWait();
-//
-//            //walk through directory and look for mp3 files
-//            SongManager.walk(dir);
-//            SongManager.createSongList();
-//            SongManager.createGameSet();
-//        }
-        //get up and running
+        if (!dir.equals("")) {
+            //this is not the first start, so we can import the gameSet
+            importGameSet();
+        } // else:  dir.equals("") (first start or file lost) go on without path - startcontroller will notice and handle it
+
         stage.setTitle("MusikRaten");
         //min window size
         stage.setMinWidth(1024);
         stage.setMinHeight(768);
         stage.setResizable(true);
+        //scene
         stage.setScene(
                 createScene(
                         loadMainPane()
                 )
         );
+        //icon
         stage.getIcons().add(iconmusic);
-        stage.setResizable(false);
+        //get up and running
         stage.show();
     }
 
@@ -166,28 +161,46 @@ public class Main extends Application {
                 }
             }
         } catch (Exception e) {       //error msg if all fails
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Error Blindtest - MusikRaten");
-            dialog.setContentText("loadData - An error occured while handling players. Cause:" + e.getMessage());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-            dialog.showAndWait();
+            myD.showDialog("loadData - An error occured while handling players. Cause:" + e.getMessage());
         }
     }
 
     public void loadPath() throws IOException {
-        //get musicpath from file
+        //get musicpath from file //throws IOException
         try {
             File temp = new File("musicpath.txt");
             try (Scanner scanner = new Scanner(temp)) {
                 dir = scanner.nextLine();
+                scanner.close();
             }
         } catch (IOException e) {
-            //will fail on first start on new system - let user know to set a path to his music
-                Dialog<ButtonType> dialog = new Dialog<>();
-                dialog.setTitle("Blindtest - MusikRaten");
-                dialog.setContentText("No music directory set. Please select a path to your music files.");
-                dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-                dialog.showAndWait();
+            /*will fail on first start on new system - set "" (StartController
+            * will notice and disable Play Button; so user must choose path first
+            * in DirectoryChooser)
+             */
+            dir = "";
+        }
+    }
+
+    //reads in the GameSet from file
+    public void importGameSet() throws Exception {
+        List<Song> importSongList;
+        Set<Song> importSet;
+        try {
+            //get songList from file 
+            File fileSongList = new File("savedSongList.dat");
+            ObjectInputStream ois1 = new ObjectInputStream(new FileInputStream(fileSongList));
+            importSongList = (List<Song>) ois1.readObject();
+            //get gameSet from file 
+            File fileHashSet = new File("savedHashSet.dat");
+            ObjectInputStream ois2 = new ObjectInputStream(new FileInputStream(fileHashSet));
+            importSet = (HashSet<Song>) ois2.readObject();
+            //call the SongManager and hand over imported data
+            SongManager sm = new SongManager(importSet, importSongList);
+        } catch (IOException | ClassNotFoundException e) {
+            myD.showDialog("An error occured while importing the Songdata. Cause:" + e.getMessage());
+            //if this fails create it new
+            SongManager.getSongFiles();
         }
     }
 
@@ -202,15 +215,31 @@ public class Main extends Application {
                 s.writeObject(highScore);
             }
         } catch (IOException e) {
-            Dialog<ButtonType> dialog = new Dialog<>();
-            dialog.setTitle("Error Blindtest - MusikRaten");
-            dialog.setContentText("on stop save - An error occured while saving the data. Cause:" + e.getMessage());
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK);
-            dialog.showAndWait();
+            myD.showDialog("on stop save - An error occured while saving the data. Cause:" + e.getMessage());
+        }
+
+        //save songList to file
+        try {
+            String filename = "savedSongList.dat";
+            // Serialize / save it
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename));
+            oos.writeObject(SongManager.songList);
+        } catch (Exception e) {
+            myD.showDialog("An error occured while saving the songList. Cause:" + e.getMessage());
+        }
+
+        //save gameSet to file
+        try {
+            String filename = "savedHashSet.dat";
+            // Serialize / save it
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename));
+            oos.writeObject(SongManager.gameSet);
+        } catch (Exception e) {
+            myD.showDialog("An error occured while saving the gameSet. Cause:" + e.getMessage());
         }
     }
 
-      //Getter and Setter
+    //Getter and Setter
     public static String getDir() {
         return dir;
     }
@@ -248,7 +277,6 @@ public class Main extends Application {
     }
 
     //Getter
-
     public static int getGameScoreLeft() {
         return gameScoreLeft;
     }
@@ -258,7 +286,6 @@ public class Main extends Application {
     }
 
     //Add 1 Up
-
     public static void addGameScoreLeft() {
         gameScoreLeft++;
     }
@@ -268,14 +295,12 @@ public class Main extends Application {
     }
 
     //reSet to 0
-
     public static void resetGameScore() {
         //for both players
         gameScoreLeft = 0;
         gameScoreRight = 0;
     }
 
-    
     public static int getLevel() {
         return level;
     }
@@ -314,5 +339,5 @@ public class Main extends Application {
 
     public static void setPlayable(boolean playable) {
         Main.playable = playable;
-    }   
+    }
 }

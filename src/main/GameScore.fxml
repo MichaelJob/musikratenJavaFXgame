@@ -13,31 +13,31 @@
 <?scenebuilder-stylesheet blindtest.css?>
 
 <AnchorPane id="AnchorPane" styleClass="GameScoreBackground" stylesheets="@../guisrc/blindtest.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.GameScoreController">
-   <children>
-      <BorderPane fx:id="GameScorePane" prefHeight="768.0" prefWidth="1024.0">
-         <bottom>
-            <Button fx:id="bClose" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleBClose" prefHeight="105.0" prefWidth="102.0" styleClass="ScoreButton" text="exit" BorderPane.alignment="CENTER">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <BorderPane.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </BorderPane.margin>
-            </Button>
-         </bottom>
-         <center>
-            <Label fx:id="lGameScore" alignment="CENTER" prefHeight="500.0" prefWidth="800.0" styleClass="Score" text="Game Score" textFill="WHITE" wrapText="true" BorderPane.alignment="CENTER">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-               <font>
-                  <Font name="System Bold" size="28.0" />
-               </font>
-            </Label>
-         </center>
-         <left>
+    <children>
+        <BorderPane fx:id="GameScorePane" prefHeight="768.0" prefWidth="1024.0">
+            <bottom>
+                <Button fx:id="bClose" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#handleBClose" prefHeight="105.0" prefWidth="102.0" styleClass="ScoreButton" text="exit" BorderPane.alignment="CENTER">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                    <BorderPane.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </BorderPane.margin>
+                </Button>
+            </bottom>
+            <center>
+                <Label fx:id="lGameScore" alignment="CENTER" prefHeight="500.0" prefWidth="800.0" styleClass="Score" text="Game Score" textFill="WHITE" wrapText="true" BorderPane.alignment="CENTER">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </padding>
+                    <font>
+                        <Font name="System Bold" size="28.0" />
+                    </font>
+                </Label>
+            </center>
+            <left>
          
-         </left>
-      </BorderPane>
-   </children>
+            </left>
+        </BorderPane>
+    </children>
 </AnchorPane>

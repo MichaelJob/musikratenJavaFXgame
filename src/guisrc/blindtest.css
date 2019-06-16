@@ -26,8 +26,8 @@
 }
 
 .tool-bar:horizontal {
--fx-background-color:
-    linear-gradient(to bottom, grey, black, #303030 );
+    -fx-background-color:
+        linear-gradient(to bottom, grey, black, #303030 );
 }
 
 .StartButtons{
@@ -63,11 +63,11 @@
 }
 
 .menu-item {
-     -fx-background-color: black;
+    -fx-background-color: black;
 }
 
 .menu-item:focused {
-     -fx-background-color: grey;
+    -fx-background-color: grey;
 }
 
 .menu-item:focused .label {

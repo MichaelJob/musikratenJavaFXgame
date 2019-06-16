@@ -3,7 +3,7 @@
 build
 dist
 highScoreFile.txt
-savedHashSet.dat
 nbproject
 musicpath.txt
 manifest.mf
+*.dat
